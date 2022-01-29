@@ -35,16 +35,11 @@ public class BalanceChecker : MonoBehaviour
     {
         //currentRotation += num;
         balanceNum += num;
-        rotateArrow(num);
+        rotateArrow();
     }
 
-    void rotateArrow(int amount)
+    void rotateArrow()
     {
-        for(int i = 0; i < amount; i++)
-        {
-            currentRotation++;
-            arrow.transform.rotation = Quaternion.Euler(0.0f, 0.0f, currentRotation);
-        }
-
+        arrow.transform.rotation = Quaternion.Euler(0.0f, 0.0f, balanceNum);
     }
 }
