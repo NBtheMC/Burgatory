@@ -49,11 +49,10 @@ public class IngredientDropper : MonoBehaviour
         cheeseTimer = timer;
         bunTimer = timer;
         //Test list
-        // ingredientsToDrop = new List<string>();
-        // ingredientsToDrop.Add("bun");
-        // ingredientsToDrop.Add("cheese");
-        // ingredientsToDrop.Add("cheese");
-        // ingredientsToDrop.Add("bun");
+        burgerToMake.Add("bun");
+        burgerToMake.Add("cheese");
+        burgerToMake.Add("cheese");
+        burgerToMake.Add("bun");
     }
 
     // Update is called once per frame
@@ -99,6 +98,7 @@ public class IngredientDropper : MonoBehaviour
                 // if(lettuceTimer <= 0){
                     GameObject newLettuce = Instantiate(lettuce, positionToDrop, new Quaternion(0f, 0f, 0f, 0f));
                     currentPrefabs.Add(newLettuce);
+                    currentBurger.Add("lettuce");
                     lettuceTimer = timer;
                     lettuceButton.interactable = false;
                 // }
@@ -107,6 +107,7 @@ public class IngredientDropper : MonoBehaviour
                 // if(tomatoTimer <= 0){
                     GameObject newTomato = Instantiate(tomato, positionToDrop, new Quaternion(0f, 0f, 0f, 0f));
                     currentPrefabs.Add(newTomato);
+                    currentBurger.Add("tomato");
                     tomatoTimer = timer;
                     tomatoButton.interactable = false;
                 // }                
@@ -115,6 +116,7 @@ public class IngredientDropper : MonoBehaviour
                 // if(cheeseTimer <= 0){
                     GameObject newCheese = Instantiate(cheese, positionToDrop, new Quaternion(0f, 0f, 0f, 0f)) as GameObject;
                     currentPrefabs.Add(newCheese);
+                    currentBurger.Add("cheese");
                     cheeseTimer = timer;
                     cheeseButton.interactable = false;
                 // }
@@ -123,11 +125,35 @@ public class IngredientDropper : MonoBehaviour
                 // if(bunTimer <= 0){
                     GameObject newBun = Instantiate(bun, positionToDrop, new Quaternion(0f, 0f, 0f, 0f));
                     currentPrefabs.Add(newBun);
+                    currentBurger.Add("bun");
                     bunTimer = timer;
                     bunButton.interactable = false;
                 // }
                 break;
         }
+        //check if order is fulfilled
+        if(OrderMatched()){
+            FinishedBurger();
+        }
+    }
+
+    private bool OrderMatched(){
+        if(burgerToMake == null && currentBurger == null){
+            return true;
+        }
+        else if(burgerToMake == null || currentBurger == null){
+            return false;
+        }
+ 
+        if (burgerToMake.Count != currentBurger.Count){
+            return false;
+        }
+        for (int i = 0; i < burgerToMake.Count; i++) {
+            if (string.Compare(burgerToMake[i], currentBurger[i]) != 0){
+              return false;
+            }
+        }
+        return true;
     }
 
     //Used by some other script to set up order of ingredients to drop
@@ -144,6 +170,9 @@ public class IngredientDropper : MonoBehaviour
     public void DumpBurger(){
         foreach(GameObject i in currentPrefabs){
             Destroy(i);
+        }
+        foreach(string s in currentBurger){
+            currentBurger.Remove(s);
         }
     }
 }
