@@ -38,3 +38,5 @@ sysinfo.txt
 *.unitypackage
 Logs/AssetImportWorker0.log
 Logs/ApiUpdaterCheck.txt
+*.log
+UserSettings/EditorUserSettings.asset
