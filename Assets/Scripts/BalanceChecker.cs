@@ -33,7 +33,7 @@ public class BalanceChecker : MonoBehaviour
         }
     }
 
-    void increaseNumber(int num)
+    public void increaseNumber(int num)
     {
         //currentRotation += num;
         if(balanceNum + num > 90)
@@ -70,22 +70,32 @@ public class BalanceChecker : MonoBehaviour
                 break;
             //heavy A
             case float n when (balanceNum >= 60 && balanceNum < 90):
+                sideA.GetComponent<Image>().color = new Color32(12, 184, 202, 255);
+                sideB.GetComponent<Image>().color = new Color32(241, 79, 28, 255);
                 UnityEngine.Debug.Log("Heavy advantage towards A");
                 break;
             //complete A
             case float n when balanceNum == 90f:
+                sideA.GetComponent<Image>().color = new Color32(0, 0, 255, 255);
+                sideB.GetComponent<Image>().color = new Color32(255, 0, 0, 255);
                 UnityEngine.Debug.Log("Complete bias towards A");
                 break;
             //slight B
             case float n when (balanceNum <= -30f && balanceNum > -60):
+                sideB.GetComponent<Image>().color = new Color32(86, 255, 0, 255);
+                sideA.GetComponent<Image>().color = new Color32(221, 161, 47, 255);
                 UnityEngine.Debug.Log("Slight advantage towards B");
                 break;
             //heavy B
             case float n when (balanceNum <= -60 && balanceNum > -90):
+                sideB.GetComponent<Image>().color = new Color32(12, 184, 202, 255);
+                sideA.GetComponent<Image>().color = new Color32(241, 79, 28, 255);
                 UnityEngine.Debug.Log("Heavy advantage towards B");
                 break;
             //complete B
             case float n when balanceNum == -90f:
+                sideB.GetComponent<Image>().color = new Color32(0, 0, 255, 255);
+                sideA.GetComponent<Image>().color = new Color32(255, 0, 0, 255);
                 UnityEngine.Debug.Log("Complete bias towards B");
                 break;
         }
