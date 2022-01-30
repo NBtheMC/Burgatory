@@ -18,13 +18,13 @@ public class CameraSwitcher : MonoBehaviour
     }
 
     public IEnumerator SwitchToBurger(){
-        Gotoposition = pointC;
+        //Gotoposition = pointC;
         float elapsedTime = 0;
         float waitTime = 3f;
-        currentPos = transform.position;
+        //currentPos = transform.position;
  
         while (elapsedTime < waitTime){
-            transform.position = Vector3.Lerp(currentPos, pointC, (elapsedTime / waitTime));
+            //transform.position = Vector3.Lerp(currentPos, pointC, (elapsedTime / waitTime));
             elapsedTime += Time.deltaTime;
         }
         return null;

@@ -198,13 +198,4 @@ public class IngredientDropper : MonoBehaviour
             currentBurger.Remove(s);
         }
     }
-
-    public void DumpBurger(){
-        foreach(GameObject i in currentPrefabs){
-            Destroy(i);
-        }
-        foreach(string s in currentBurger){
-            currentBurger.Remove(s);
-        }
-    }
 }
