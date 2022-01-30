@@ -7,6 +7,8 @@ public class BalanceChecker : MonoBehaviour
 {
 
     public GameObject arrow;
+    public GameObject sideA;
+    public GameObject sideB;
     private float balanceNum;
     private float currentRotation;
     // Start is called before the first frame update
@@ -15,12 +17,12 @@ public class BalanceChecker : MonoBehaviour
         balanceNum = 0f;
         currentRotation = 0f;
         arrow.transform.rotation = Quaternion.Euler(0.0f, 0.0f, currentRotation);
+        updateSides();
     }
 
     // Update is called once per frame
     void Update()
     {
-        UnityEngine.Debug.Log(currentRotation);
         if (Input.GetKeyDown("q"))
         {
             increaseNumber(10);
@@ -31,11 +33,83 @@ public class BalanceChecker : MonoBehaviour
         }
     }
 
-    void increaseNumber(int num)
+    public void increaseNumber(int num)
     {
         //currentRotation += num;
-        balanceNum += num;
+        if(balanceNum + num > 90)
+        {
+            balanceNum = 90;
+        }
+        else if (balanceNum + num < -90)
+        {
+            balanceNum = -90;
+        }
+        else
+        {
+            balanceNum += num;
+        }
         rotateArrow();
+        updateSides();
+    }
+
+    void updateSides()
+    {
+        switch (balanceNum)
+        {
+            //Perfect balance
+            case float n when balanceNum == 0f:
+                UnityEngine.Debug.Log("Perfectly balanced");
+                sideA.GetComponent<Image>().color = Color.white;
+                sideB.GetComponent<Image>().color = Color.white;
+                break;
+            //slight A
+            case float n when (balanceNum >= 30f && balanceNum < 60):
+                sideA.GetComponent<Image>().color = new Color32(86, 255, 0, 255);
+                sideB.GetComponent<Image>().color = new Color32(221, 161, 47, 255);
+                UnityEngine.Debug.Log("Slight advantage towards A");
+                break;
+            //heavy A
+            case float n when (balanceNum >= 60 && balanceNum < 90):
+                sideA.GetComponent<Image>().color = new Color32(12, 184, 202, 255);
+                sideB.GetComponent<Image>().color = new Color32(241, 79, 28, 255);
+                UnityEngine.Debug.Log("Heavy advantage towards A");
+                break;
+            //complete A
+            case float n when balanceNum == 90f:
+                sideA.GetComponent<Image>().color = new Color32(0, 0, 255, 255);
+                sideB.GetComponent<Image>().color = new Color32(255, 0, 0, 255);
+                UnityEngine.Debug.Log("Complete bias towards A");
+                break;
+            //slight B
+            case float n when (balanceNum <= -30f && balanceNum > -60):
+                sideB.GetComponent<Image>().color = new Color32(86, 255, 0, 255);
+                sideA.GetComponent<Image>().color = new Color32(221, 161, 47, 255);
+                UnityEngine.Debug.Log("Slight advantage towards B");
+                break;
+            //heavy B
+            case float n when (balanceNum <= -60 && balanceNum > -90):
+                sideB.GetComponent<Image>().color = new Color32(12, 184, 202, 255);
+                sideA.GetComponent<Image>().color = new Color32(241, 79, 28, 255);
+                UnityEngine.Debug.Log("Heavy advantage towards B");
+                break;
+            //complete B
+            case float n when balanceNum == -90f:
+                sideB.GetComponent<Image>().color = new Color32(0, 0, 255, 255);
+                sideA.GetComponent<Image>().color = new Color32(255, 0, 0, 255);
+                UnityEngine.Debug.Log("Complete bias towards B");
+                break;
+        }
+        /*if(balanceNum == 0)
+        {
+            sideA.GetComponent<Image>().color = Color.white;
+            sideB.GetComponent<Image>().color = Color.white;
+
+        }
+        if (balanceNum > 30)
+        {
+            sideA.GetComponent<Image>().color = Color.green;
+            sideB.GetComponent<Image>().color = new Color32(221, 161, 47, 255);
+        }*/
     }
 
     void rotateArrow()
