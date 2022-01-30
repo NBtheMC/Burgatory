@@ -13,10 +13,13 @@ public class Customer : MonoBehaviour
     bool waitingForOrder;
     public Text orderTextBox;
     private string orderText;
+    public GameObject biasChecker;
+    string side;
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
+        biasChecker = GameObject.Find("BalanceCheckerObj");
         waitingForOrder = false;
         currentTimer = maxTimer;
         ingredients.Add("bun");
@@ -26,12 +29,14 @@ public class Customer : MonoBehaviour
         ingredients.Add("patty");
     }
 
-    void generateBurger(int size)
+    public void generateBurger(int size)
     {
         burger.Clear();
         orderText = string.Empty;
+        
         burger.Add(ingredients[0]);
-        for(int i = 0; i < size; i++)
+        UnityEngine.Debug.Log("Reached here");
+        for (int i = 0; i < size; i++)
         {
             burger.Add(ingredients[UnityEngine.Random.Range(1, 5)]);
         }
@@ -39,7 +44,6 @@ public class Customer : MonoBehaviour
         for(int j = 0; j < burger.Count; j++)
         {
             orderText = orderText + burger[j] + "\n";
-            UnityEngine.Debug.Log(burger[j]);
         }
         orderTextBox.text = orderText;
         waitingForOrder = true;
@@ -57,11 +61,42 @@ public class Customer : MonoBehaviour
 
         if (Input.GetKeyDown("space"))
         {
-            generateBurger(3);
+            generateBurger(UnityEngine.Random.Range(3, 6));
         }
         if (waitingForOrder && currentTimer <= 0f)
         {
-            Destroy(gameObject);
+            leaveAngry();
         }
+    }
+    void leaveAngry()
+    {
+        UnityEngine.Debug.Log("Well, I never!");
+        switch (side)
+        {
+            case "left":
+                biasChecker.GetComponent<BalanceChecker>().increaseNumber(-30);
+                break;
+            case "right":
+                biasChecker.GetComponent<BalanceChecker>().increaseNumber(30);
+                break;
+        }
+        
+        Destroy(gameObject);
+    }
+    void leaveHappy()
+    {
+        switch (side)
+        {
+            case "left":
+                biasChecker.GetComponent<BalanceChecker>().increaseNumber(10);
+                break;
+            case "right":
+                biasChecker.GetComponent<BalanceChecker>().increaseNumber(-10);
+                break;
+        }
+    }
+    public void pickSide(string chosenSide)
+    {
+        side = chosenSide;
     }
 }
