@@ -11,6 +11,9 @@ public class Customer : MonoBehaviour
     float currentTimer;
     public Image timerImage;
     bool waitingForOrder;
+    public Text orderTextBox;
+    private string orderText;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -25,6 +28,8 @@ public class Customer : MonoBehaviour
 
     void generateBurger(int size)
     {
+        burger.Clear();
+        orderText = string.Empty;
         burger.Add(ingredients[0]);
         for(int i = 0; i < size; i++)
         {
@@ -33,8 +38,10 @@ public class Customer : MonoBehaviour
         burger.Add(ingredients[0]);
         for(int j = 0; j < burger.Count; j++)
         {
+            orderText = orderText + burger[j] + "\n";
             UnityEngine.Debug.Log(burger[j]);
         }
+        orderTextBox.text = orderText;
         waitingForOrder = true;
         
     }
