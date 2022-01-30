@@ -42,3 +42,5 @@ Logs/ApiUpdaterCheck.txt
 UserSettings/EditorUserSettings.asset
 *.log
 Logs/AssetImportWorker0.log
+Logs/AssetImportWorker0.log
+Logs/shadercompiler-UnityShaderCompiler.exe0.log

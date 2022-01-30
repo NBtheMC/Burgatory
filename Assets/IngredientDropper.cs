@@ -132,9 +132,9 @@ public class IngredientDropper : MonoBehaviour
                 break;
         }
         //check if order is fulfilled
-        if(OrderMatched()){
-            FinishedBurger();
-        }
+        // if(OrderMatched()){
+        //     FinishedBurger();
+        // }
     }
 
     private bool OrderMatched(){
@@ -163,8 +163,9 @@ public class IngredientDropper : MonoBehaviour
     }
 
     //ends the burgermaking phase and gives data back to customer service
-    void FinishedBurger(){
+    public List<string> GetFinishedBurger(){
         Debug.Log("Switched Scene");
+        return currentBurger;
     }
 
     public void DumpBurger(){
