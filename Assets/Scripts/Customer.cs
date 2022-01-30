@@ -7,7 +7,7 @@ public class Customer : MonoBehaviour
 {
     List<string> ingredients = new List<string>();
     List<string> burger = new List<string>();
-    float maxTimer = 60f;
+    float maxTimer = 15f;
     float currentTimer;
     public Image timerImage;
     bool waitingForOrder;
@@ -58,6 +58,10 @@ public class Customer : MonoBehaviour
         if (Input.GetKeyDown("space"))
         {
             generateBurger(3);
+        }
+        if (waitingForOrder && currentTimer <= 0f)
+        {
+            Destroy(gameObject);
         }
     }
 }
