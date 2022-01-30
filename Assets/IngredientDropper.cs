@@ -6,26 +6,34 @@ using UnityEngine.UI;
 
 public class IngredientDropper : MonoBehaviour
 {
+    //Order1
     public List<string> burgerToMake;
     public List<string> currentBurger;
+    //Order2
+    public List<string> burgerToMake2;
+    public List<string> currentBurger2;
+
     private List<GameObject> currentPrefabs;
     private float speed;
     private float timer;
     private float range;
 
     //PREFABS
+    [SerializeField] private GameObject patty;
     [SerializeField] private GameObject lettuce;
     [SerializeField] private GameObject tomato;
     [SerializeField] private GameObject cheese;
     [SerializeField] private GameObject bun;
 
     //SPAWNING BUTTONS
+    [SerializeField] private Button pattyButton;
     [SerializeField] private Button lettuceButton;
     [SerializeField] private Button tomatoButton;
     [SerializeField] private Button cheeseButton;
     [SerializeField] private Button bunButton;
 
     //TIMER LOGIC
+    private float pattyTimer;
     private float lettuceTimer;
     private float tomatoTimer;
     private float cheeseTimer;
@@ -69,6 +77,10 @@ public class IngredientDropper : MonoBehaviour
         //     timer = 0;
         // }
         // Timer updating
+        pattyTimer -= Time.deltaTime;
+        if(pattyTimer <= 0){
+            pattyButton.interactable = true;
+        }
         lettuceTimer -= Time.deltaTime;
         if(lettuceTimer <= 0){
             lettuceButton.interactable = true;
@@ -94,6 +106,15 @@ public class IngredientDropper : MonoBehaviour
         Vector3 positionToDrop = new Vector3(this.transform.position.x, this.transform.position.y, this.transform.position.z) + new Vector3(Random.Range(-range, range), 0, 0);
         //string nextIngredientToDrop = ingredientsToDrop[0];
         switch(ingredient){
+            case "patty":
+                // if(lettuceTimer <= 0){
+                    GameObject newPatty = Instantiate(patty, positionToDrop, new Quaternion(0f, 0f, 0f, 0f));
+                    currentPrefabs.Add(newPatty);
+                    currentBurger.Add("patty");
+                    pattyTimer = timer;
+                    pattyButton.interactable = false;
+                // }
+                break;
             case "lettuce":
                 // if(lettuceTimer <= 0){
                     GameObject newLettuce = Instantiate(lettuce, positionToDrop, new Quaternion(0f, 0f, 0f, 0f));
@@ -156,6 +177,7 @@ public class IngredientDropper : MonoBehaviour
         return true;
     }
 
+    // Should take 2 orders
     //Used by some other script to set up order of ingredients to drop
     public void GiveIngredientsToDrop(List<string> ingredients){
         burgerToMake = ingredients;
