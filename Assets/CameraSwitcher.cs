@@ -10,6 +10,8 @@ public class CameraSwitcher : MonoBehaviour
     [SerializeField] Transform pointC; //Burger
     private int currentPoint; //1 for A, 2 for B
 
+    //public IEnumerator MoveDown;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -17,31 +19,39 @@ public class CameraSwitcher : MonoBehaviour
         cam.transform.position = pointB.position;
     }
 
-    public IEnumerator SwitchToBurger(){
-        //Gotoposition = pointC;
+    public IEnumerator MoveDown(){
+        Debug.Log("Moving down");
         float elapsedTime = 0;
-        float waitTime = 3f;
+        float waitTime = 1f;
         //currentPos = transform.position;
  
         while (elapsedTime < waitTime){
-            //transform.position = Vector3.Lerp(currentPos, pointC, (elapsedTime / waitTime));
+            cam.transform.position = Vector3.Lerp(cam.transform.position, pointC.position, (elapsedTime / waitTime));
             elapsedTime += Time.deltaTime;
+            yield return null;
         }
-        return null;
+        //return null;
     }
 
-    // public void SwitchToBurger(){
-    //     if(currentPoint == 1){
-    //         cam.transform.position = Vector3.Lerp(cam.transform.position, pointB.position, .5f);
-    //         currentPoint = 2;
+    public IEnumerator MoveUp(){
+        Debug.Log("Moving up");
+        float elapsedTime = 0;
+        float waitTime = 1f;
+        //currentPos = transform.position;
+ 
+        while (elapsedTime < waitTime){
+            cam.transform.position = Vector3.Lerp(cam.transform.position, pointB.position, (elapsedTime / waitTime));
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+        //return null;
+    }
 
-    //     }
-    // }
+    public void SwitchToBurger(){
+        StartCoroutine(MoveDown());
+    }
 
     public void SwitchToServing(){
-        if(currentPoint == 2){
-            cam.transform.position = Vector3.Lerp(cam.transform.position, pointA.position, .5f);
-            currentPoint = 1;
-        }
+        StartCoroutine(MoveUp());
     }
 }
