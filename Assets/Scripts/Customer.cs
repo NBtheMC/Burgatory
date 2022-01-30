@@ -1,15 +1,21 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Customer : MonoBehaviour
 {
     List<string> ingredients = new List<string>();
     List<string> burger = new List<string>();
-    
+    float maxTimer = 60f;
+    float currentTimer;
+    public Image timerImage;
+    bool waitingForOrder;
     // Start is called before the first frame update
     void Start()
     {
+        waitingForOrder = false;
+        currentTimer = maxTimer;
         ingredients.Add("bun");
         ingredients.Add("lettuce");
         ingredients.Add("tomato");
@@ -29,12 +35,19 @@ public class Customer : MonoBehaviour
         {
             UnityEngine.Debug.Log(burger[j]);
         }
-        //UnityEngine.Debug.Log(burger.ToString());
+        waitingForOrder = true;
+        
     }
 
     // Update is called once per frame
     void Update()
     {
+        timerImage.fillAmount = currentTimer / maxTimer;
+        if (waitingForOrder)
+        {
+            currentTimer -= Time.deltaTime;
+        }
+
         if (Input.GetKeyDown("space"))
         {
             generateBurger(3);
