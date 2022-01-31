@@ -14,11 +14,13 @@ public class Customer : MonoBehaviour
     public Text orderTextBox;
     private string orderText;
     public GameObject biasChecker;
+    public GameObject customerCreator;
     string side;
 
     // Start is called before the first frame update
     void Awake()
     {
+        customerCreator = GameObject.Find("CustomerCreator");
         biasChecker = GameObject.Find("BalanceCheckerObj");
         waitingForOrder = false;
         currentTimer = maxTimer;
@@ -33,9 +35,7 @@ public class Customer : MonoBehaviour
     {
         burger.Clear();
         orderText = string.Empty;
-        
         burger.Add(ingredients[0]);
-        UnityEngine.Debug.Log("Reached here");
         for (int i = 0; i < size; i++)
         {
             burger.Add(ingredients[UnityEngine.Random.Range(1, 5)]);
@@ -75,12 +75,13 @@ public class Customer : MonoBehaviour
         {
             case "left":
                 biasChecker.GetComponent<BalanceChecker>().increaseNumber(-30);
+                customerCreator.GetComponent<CustomerGenerator>().provideVacancy(side);
                 break;
             case "right":
                 biasChecker.GetComponent<BalanceChecker>().increaseNumber(30);
+                customerCreator.GetComponent<CustomerGenerator>().provideVacancy(side);
                 break;
         }
-        
         Destroy(gameObject);
     }
     void leaveHappy()
@@ -89,9 +90,11 @@ public class Customer : MonoBehaviour
         {
             case "left":
                 biasChecker.GetComponent<BalanceChecker>().increaseNumber(10);
+                customerCreator.GetComponent<CustomerGenerator>().provideVacancy(side);
                 break;
             case "right":
                 biasChecker.GetComponent<BalanceChecker>().increaseNumber(-10);
+                customerCreator.GetComponent<CustomerGenerator>().provideVacancy(side);
                 break;
         }
     }
