@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Ingredient
   - Canvas
+  - Customer
   layers:
   - Default
   - TransparentFX
