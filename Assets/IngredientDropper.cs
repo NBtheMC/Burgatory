@@ -108,7 +108,7 @@ public class IngredientDropper : MonoBehaviour
         switch(ingredient){
             case "patty":
                 // if(lettuceTimer <= 0){
-                    GameObject newPatty = Instantiate(patty, positionToDrop, new Quaternion(0f, 0f, 0f, 0f));
+                    GameObject newPatty = Instantiate(patty, positionToDrop, patty.transform.rotation);
                     currentPrefabs.Add(newPatty);
                     currentBurger.Add("patty");
                     pattyTimer = timer;
@@ -117,7 +117,7 @@ public class IngredientDropper : MonoBehaviour
                 break;
             case "lettuce":
                 // if(lettuceTimer <= 0){
-                    GameObject newLettuce = Instantiate(lettuce, positionToDrop, new Quaternion(0f, 0f, 0f, 0f));
+                    GameObject newLettuce = Instantiate(lettuce, positionToDrop, lettuce.transform.rotation);
                     currentPrefabs.Add(newLettuce);
                     currentBurger.Add("lettuce");
                     lettuceTimer = timer;
@@ -126,7 +126,7 @@ public class IngredientDropper : MonoBehaviour
                 break;
             case "tomato":
                 // if(tomatoTimer <= 0){
-                    GameObject newTomato = Instantiate(tomato, positionToDrop, new Quaternion(0f, 0f, 0f, 0f));
+                    GameObject newTomato = Instantiate(tomato, positionToDrop, tomato.transform.rotation);
                     currentPrefabs.Add(newTomato);
                     currentBurger.Add("tomato");
                     tomatoTimer = timer;
@@ -135,7 +135,7 @@ public class IngredientDropper : MonoBehaviour
                 break;
             case "cheese":
                 // if(cheeseTimer <= 0){
-                    GameObject newCheese = Instantiate(cheese, positionToDrop, new Quaternion(0f, 0f, 0f, 0f)) as GameObject;
+                    GameObject newCheese = Instantiate(cheese, positionToDrop, cheese.transform.rotation) as GameObject;
                     currentPrefabs.Add(newCheese);
                     currentBurger.Add("cheese");
                     cheeseTimer = timer;
@@ -144,7 +144,7 @@ public class IngredientDropper : MonoBehaviour
                 break;
             case "bun":
                 // if(bunTimer <= 0){
-                    GameObject newBun = Instantiate(bun, positionToDrop, new Quaternion(0f, 0f, 0f, 0f));
+                    GameObject newBun = Instantiate(bun, positionToDrop, bun.transform.rotation);
                     currentPrefabs.Add(newBun);
                     currentBurger.Add("bun");
                     bunTimer = timer;
