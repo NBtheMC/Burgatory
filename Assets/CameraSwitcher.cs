@@ -8,6 +8,7 @@ public class CameraSwitcher : MonoBehaviour
     [SerializeField] Transform pointA; //Title
     [SerializeField] Transform pointB; //Serving
     [SerializeField] Transform pointC; //Burger
+    [SerializeField] Transform pointD; //Results
     private int currentPoint; //1 for A, 2 for B
 
     //public IEnumerator MoveDown;
@@ -16,7 +17,7 @@ public class CameraSwitcher : MonoBehaviour
     void Start()
     {
         currentPoint = 1;
-        cam.transform.position = pointB.position;
+        //cam.transform.position = pointA.position;
     }
 
     public IEnumerator MoveDown(){
@@ -53,5 +54,14 @@ public class CameraSwitcher : MonoBehaviour
 
     public void SwitchToServing(){
         StartCoroutine(MoveUp());
+    }
+
+    public void StartGame(){
+        SwitchToServing();
+        
+    }
+
+    public void EndGame(){
+
     }
 }
